@@ -1,0 +1,41 @@
+<ul id="books">
+  <% @books.each do |book| %>
+    <li>
+      <article class="book">
+        <table>
+          <tr>
+            <td>
+              <%= image_for(book) %>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><h2><%= link_to(book.title, book) %></h2></td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <%= truncate(book.description, length: 150, separator: ' ') %>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Author</th>
+                  <td><%= book.author %></td>
+                </tr>
+                <tr>
+                  <th>Price</th>
+                  <td><%= format_price(book) %></td>
+                </tr>
+                <tr>
+                  <th>Released On</th>
+                  <td><%= book.released_on %></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </article>
+    </li>
+  <% end %>
+</ul>

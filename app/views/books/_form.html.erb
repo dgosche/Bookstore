@@ -1,0 +1,39 @@
+<%= form_for(@book) do |f| %>
+  <%= render "shared/errors", object: @book %>
+  <fieldset>
+    <ol>
+      <li class="required">
+        <%= f.label :title %>
+        <%= f.text_field :title, autofocus: true %>
+      </li>
+      <li class="required">
+        <%= f.label :author %>
+        <%= f.text_field :author, size: 30 %>
+      </li>
+      <li class="required">
+        <%= f.label :description %>
+        <%= f.text_area :description, cols: 40, rows: 7 %>
+      </li>
+      <li class="required">
+        <%= f.label :price %>
+        <%= f.number_field :price, size: 6 %>
+      </li>
+      <li class="required">
+        <%= f.label :released_on %>
+        <%= f.date_select :released_on %>
+      </li>
+      <li class="required">
+        <%= f.label :book_image_name, 'Image Filename' %>
+        <%= f.text_field :book_image_name, size: 30, 
+                         placeholder: "GIF, JPG, or PNG file name" %>
+      </li>
+      <li>
+        <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+      </li>
+    </ol>
+    <p>
+      <%= f.submit %>
+      <%= link_to "Cancel", books_path, class: 'button' %>
+    </p>
+  </fieldset>
+<% end %>

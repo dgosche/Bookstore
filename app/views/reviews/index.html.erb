@@ -1,0 +1,15 @@
+<header id="content-header">
+	<h1>Reviews for <%= link_to @book.title, @book %> (<%= pluralize(@book.average_review_stars, 'Star') %>)</h1>
+</header>
+
+<ol id="reviews">
+	<% @reviews.each do |review| %>
+		<li>
+			<p>
+				<%= link_to review.user.name,book_review_path(@book,review) %><br>
+				<%= review.comment %><br>
+				<%= pluralize(review.stars, 'Star') %>
+			</p>
+		</li>
+	<% end %>
+</ol>

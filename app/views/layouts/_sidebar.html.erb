@@ -1,0 +1,32 @@
+<aside id="sidebar">
+  <nav>
+    <ul>  
+      <li class="books">
+        <%= link_to "All Books", books_path, class: 'button' %>
+      </li>
+      <li class="books">
+        <%= link_to "Past", filtered_books_path(:past), class: 'button' %>
+      </li>
+      <li class="books">
+        <%= link_to "Free", filtered_books_path(:free), class: 'button' %>
+      </li>
+      <li class="books">
+        <%= link_to "Recent", filtered_books_path(:recent), class: 'button' %>
+      </li>
+      <% if current_user_admin? %>
+        <li class="create-book">
+          <%= link_to 'Add New Book', new_book_path, class: 'button' %>
+        </li>
+      <% end %>
+      <% if @book && @book.id %>
+        <li>
+          <%= link_to 'All Book Reviews', book_reviews_path(@book), class: 'button' %>
+        </li>
+        <li>
+          <%= link_to 'Add New Book Review', new_book_review_path(@book), class: 'button' %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+  <%= content_for(:side) %>
+</aside>

@@ -1,0 +1,22 @@
+<header id="content-header">
+	<h1>Review for <%= @book.title %> by <%= @review.user.name %></h1>
+</header>
+
+<h3>Name</h3>
+<p>
+	<%= @review.user.name %>
+</p>
+
+<h3>Comment</h3>
+<p>
+	<%= @review.comment %>
+</p>
+
+<h3>Stars</h3>
+<p>
+	<%= pluralize(@review.stars, 'Star') %>
+</p>
+
+<footer id="content-footer">
+	<%= link_to "Edit", edit_book_review_path(@book,@review), class: 'button' %>
+</footer>

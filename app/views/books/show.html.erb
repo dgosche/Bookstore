@@ -1,0 +1,82 @@
+<article id="book" class="book">
+  <table>
+    <tr>
+      <td><%= image_for(@book) %></td>
+      <td>
+        <h1><%= @book.title %></h1>
+        <h2><%= @book.author %></h2>
+        <p>
+          <%= @book.description %>
+        </p>
+        <h3>Price</h3>
+        <p>
+          <%= format_price(@book) %>
+        </p>
+        <h3>Released On</h3>
+        <p>
+          <%= @book.released_on %>
+        </p>
+        <p>
+          <% if current_user %>
+            <% if @current_like %>
+              <%= button_to "Unlike", book_like_path(@book, @current_like), method: :delete %>
+            <% else %>
+              <%= button_to "Like", book_likes_path(@book) %>
+            <% end %>
+          <% end %>
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <p><%= pluralize(@book.reviews.size, 'Review') %></p>
+  <ol>
+    <% @book.reviews.limit(3).each do |review| %>
+      <p>
+        <%= link_to review.user.name, book_review_path(@book, review) %><br>
+        <%= review.comment %>
+      </p>
+    <% end %>
+  </ol>
+  <% if @book.reviews.size > 3 %>
+    <p>
+      <%= link_to 'See All Book Reviews', book_reviews_path(@book) %>
+    </p>
+  <% end %>
+
+  <footer>
+    <%= link_to "Write Review", new_book_review_path(@book), 
+                class: 'button ok review' %>
+    <nav>
+      <% if current_user_admin? %>
+        <%= link_to 'Edit', edit_book_path(@book), class: 'button' %>
+        <%= link_to 'Delete', @book, 
+                    class: 'button',
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </nav>
+  </footer>
+</article>
+
+        <% content_for(:side) do %>
+          <p>
+            <h3>Likers</h3>
+            <ol>
+              <% @likers.each do |like| %>
+                <li>
+                  <%= link_to like.user.name, like.user %>
+                </li>
+              <% end %>
+            </ol>
+          </p>
+          <p>
+            <h3>Categories</h3>
+            <ol>
+              <% @categories.each do |c| %>
+                <li>
+                  <%= link_to c.name, c %>
+                </li>
+              <% end %>
+            </ol>
+          </p>
+        <% end %>

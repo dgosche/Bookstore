@@ -1,0 +1,35 @@
+<article id="user">
+	<header>
+		<h1><%= @user.name %></h1>
+		<h2><%= mail_to @user.email %></h2>
+		<h3>Member Since</h3>
+		<p>
+			<%= @user.created_at.strftime("%B %Y") %>
+		</p>
+	</header>
+
+	<ul>
+		<% @reviews.each do |review| %>
+			<li>
+				<p>
+					<%= review.book.title %><br>
+					<%= review.stars %><br>
+					<%= review.comment %>
+				</p>
+			</li>
+		<% end %>
+	</ul>
+
+	<footer>
+		<nav>
+			<% if current_user?(@user) %>
+				<%= link_to "Edit Account", edit_user_path(@user), class: "button" %>
+			<% end %>
+			<% if current_user_admin? %>
+				<%= link_to "Delete Account", @user, class: "button",
+							method: :delete, 
+							data: { confirm: "Are you sure you want to permanently delete your account?" } %>
+			<% end %>
+		</nav>
+	</footer>
+</article>
